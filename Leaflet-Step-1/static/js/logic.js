@@ -105,17 +105,25 @@ function createMap(earthquakes) {
       collapsed: false
     }).addTo(myMap);
 
-    // var info = L.control({
-    //     position: "bottomright"
-    //   });
-      
-    //   // When the layer control is added, insert a div with the class of "legend"
-    //   info.onAdd = function() {
-    //     var div = L.DomUtil.create("div", "legend");
-    //     return div;
-    //   };
-    //   // Add the info legend to the map
-    //   info.addTo(myMap);
+   // Add Legend
+   var legend = L.control({position: 'bottomright'});
+
+   legend.onAdd = function(map) {
+     var div = L.DomUtil.create('div', 'info legend'),
+       grades = [0, 1, 2, 3, 4, 5],
+       labels = [];
+
+     for (var i = 0; i < grades.length; i++) {
+       div.innerHTML += '<i style="background:' + chooseColor(grades[i] + 1) + '"></i> ' +
+               grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+     }
+
+     return div;
+   };
+
+    // Adding legend to the map
+  legend.addTo(myMap);
+
   }
 
   
